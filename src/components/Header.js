@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import Logo from '../benlogo.svg'
 
@@ -18,6 +20,15 @@ class Header extends Component{
         )
     }
 
+    renderUserMenu = () => {
+        return(
+            <div style={styles.buttonContainer}>
+                <FlatButton style={styles.buttonStyle} containerElement={<Link to="/play" />} label="Graj" />
+                <FlatButton style={styles.buttonStyle} containerElement={<a href={process.env.REACT_APP_API_URL + '/logout'} />} label="Wyloguj się" />
+            </div>
+        )
+    }
+
     render(){
         return (
             <AppBar 
@@ -26,13 +37,17 @@ class Header extends Component{
                         <img src={Logo} className="App-logo" alt="logo" style={{ width: '100%'}}/>
                     </div>
                 }
-                iconElementRight={this.renderGuestMenu()}
+                iconElementRight={ _.isEmpty(this.props.user) ? this.renderGuestMenu() : this.renderUserMenu()}
             />
         )
     }
 }
 
-export default Header
+function mapStateToProps(state){
+    return { user: state.user }
+}
+
+export default connect(mapStateToProps)(Header)
 
 const styles = {
     buttonContainer: {

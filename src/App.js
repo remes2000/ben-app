@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as authActions from './actions/authenticationActions'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import './App.css'
 
@@ -7,9 +9,18 @@ import Header from './components/Header'
 import Play from './components/pages/Play'
 import Login from './components/pages/Login'
 import Register from './components/pages/Register'
+
+import UserRoute from './routes/UserRoute'
+import GuestRoute from './routes/GuestRoute'
+ 
 const Dashboard = () => <div><p>Dashboard</p></div>
 
 class App extends Component {
+
+  componentDidMount(){
+    this.props.fetchUser()
+  }
+  
   render() {
     return (
       <div>
@@ -18,10 +29,12 @@ class App extends Component {
                 <div>
                   <Header />
                   <div className="container">
-                    <Route exact path="/" component={Dashboard} />
-                    <Route exact path="/play" component={Play} />
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} />
+                    <Switch>
+                      <Route path="/play" component={Play} />
+                      <GuestRoute path="/register" component={Register} />
+                      <GuestRoute path="/login" component={Login} />
+                      <Route path="/" component={Dashboard} />
+                    </Switch>
                   </div>
                 </div>
               </MuiThemeProvider>
@@ -31,4 +44,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, authActions)(App)
