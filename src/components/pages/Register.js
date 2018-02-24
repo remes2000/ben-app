@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import { Link } from 'react-router-dom'
 import * as EmailValidator from 'email-validator'
 import _ from 'lodash'
 import * as actions from '../../actions/authenticationActions'

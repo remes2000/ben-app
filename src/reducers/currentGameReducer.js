@@ -1,4 +1,4 @@
-import { CONFIGURE_CURRENT_GAME, END_OF_LEVEL, SET_RESULT, INCREMENT_LEVEL, GAME_OVER } from '../actions/types'
+import { CONFIGURE_CURRENT_GAME, END_OF_LEVEL, SET_RESULT, INCREMENT_LEVEL, GAME_OVER, GAME_OVER_BUT_NOT_LOOSE } from '../actions/types'
 import _ from 'lodash'
 
 export default function(state = null, action) {
@@ -12,6 +12,26 @@ export default function(state = null, action) {
         case SET_RESULT:
             const newStateWithAnswer = _.clone(state)
             newStateWithAnswer.isAnswerCorrect = action.payload
+
+            if(newStateWithAnswer.isAnswerCorrect){
+
+                switch (newStateWithAnswer.difficultyLevel){
+                    case 'easy':
+                        newStateWithAnswer.points += newStateWithAnswer.level + 1
+                    break
+                    case 'normal':
+                        newStateWithAnswer.points += ( newStateWithAnswer.level + 1 ) * 2
+                    break
+                    case 'hard':
+                        newStateWithAnswer.points += ( newStateWithAnswer.level + 1 ) * 3
+                    break
+                    default:
+                        newStateWithAnswer.points = 0
+                    break
+                }
+
+            }
+            
             return newStateWithAnswer
         case INCREMENT_LEVEL:
             const newStateWithNextLevel = _.clone(state)
@@ -24,11 +44,13 @@ export default function(state = null, action) {
             for(let i=0; i<newStateWithNextLevel.level + 1; i++){
                 newStateWithNextLevel.numbers.push( (Math.floor(Math.random() * (newStateWithNextLevel.end - newStateWithNextLevel.start + 1)) + newStateWithNextLevel.start).toString() )
             }
-
-            newStateWithNextLevel.points = newStateWithNextLevel.points + ( newStateWithNextLevel.level * 3)
             return newStateWithNextLevel
         case GAME_OVER:
             return null
+        case GAME_OVER_BUT_NOT_LOOSE:
+            const gameOverButNotLoose = _.clone(state)
+            gameOverButNotLoose.gameOverButNotLoose = true
+            return gameOverButNotLoose
         default:
             return state
     }

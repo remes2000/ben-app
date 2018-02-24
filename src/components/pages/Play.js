@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/currentGameActions'
+import { Prompt } from 'react-router-dom'
 
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -22,6 +23,16 @@ class Play extends Component{
             answer: '',
             errors: {}
         }
+    }
+
+    componentWillMount(){
+        this.unlisten = this.props.history.listen((location, action) => {
+            this.props.gameOver()
+        })
+    }
+
+    componentWillUnmount(){
+        this.unlisten()
     }
 
     validate = data => {
@@ -60,6 +71,10 @@ class Play extends Component{
 
         return (
             <div>
+                <Prompt 
+                    when={ !!this.props.currentGame }
+                    message="Czy napewno chcesz opuścić tę stronę ? Postęp w grze zostanie utracony."
+                />
                 <h1 style={{textAlign: 'center', margin: '4rem', fontSize: '3rem'}}>Graj w Ben</h1>
                 { !currentGame &&
                     <form onSubmit={this.onFormSubmit}>
@@ -131,7 +146,7 @@ class Play extends Component{
                         <RaisedButton label="Rozpocznij grę" secondary={true} style={{marginTop: '5rem'}} type="submit"/>
                     </form>
                 }
-                { currentGame && !currentGame.correctResult &&
+                { currentGame && typeof currentGame.correctResult === 'undefined' &&
                     <BenGame 
                         width={currentGame.width}
                         height={currentGame.height}
@@ -146,7 +161,7 @@ class Play extends Component{
                         }}
                     />
                 }
-                { currentGame && currentGame.correctResult && typeof currentGame.isAnswerCorrect === 'undefined' &&
+                { currentGame && typeof currentGame.correctResult !== 'undefined' && typeof currentGame.isAnswerCorrect === 'undefined' &&
                     <div style={ { ...styles.resultContainer, ...{ width: currentGame.width, height: currentGame.height} } }>
                         <h2>Podaj wynik</h2>
                         <form
@@ -168,16 +183,16 @@ class Play extends Component{
                 }
                 { currentGame && typeof currentGame.isAnswerCorrect !== 'undefined' &&
                     <div>
-                        { currentGame.isAnswerCorrect &&
+                        { currentGame.isAnswerCorrect && !currentGame.gameOverButNotLoose &&
                             <div style={ { ...styles.correctAnswerContainer, ...{ width: currentGame.width, height: currentGame.height} } }>
                                 <h2>Poprawna odpowiedź!</h2>
                                 <div style={styles.correctAnswerButtonsContainer} >
-                                    <RaisedButton label="Koniec gry" backgroundColor="#EF5350" labelStyle={{ color: 'white'}} onClick={ () => this.props.gameOver() }/>
-                                    <RaisedButton label="Graj dalej!" primary onClick={ () => this.props.incrementLevel(currentGame.level) }/>
+                                    <RaisedButton label="Koniec gry" backgroundColor="#EF5350" labelStyle={{ color: 'white'}} onClick={ () => this.props.gameOverButNotLoose() }/>
+                                    <RaisedButton autoFocus label="Graj dalej!" primary onClick={ () => this.props.incrementLevel(currentGame.level) }/>
                                 </div>
                             </div>
                         }
-                        { !currentGame.isAnswerCorrect &&
+                        { !currentGame.isAnswerCorrect && !currentGame.gameOverButNotLoose && 
                             <div style={ { ...styles.gameOverContainer, ...{ width: currentGame.width, height: currentGame.height} } }>
                                 <h2>Koniec gry!</h2>
                                 <p style={styles.sumOfPointsContainer}>Poprawna odpowiedź to: <span style={styles.points}>{currentGame.correctResult}</span></p>
@@ -185,6 +200,60 @@ class Play extends Component{
                                     <span style={styles.points}>{currentGame.points}</span>
                                     punktów!
                                 </p>
+                                { !_.isEmpty(this.props.user) && currentGame.difficultyLevel !== 'custom' &&
+                                    <div style={{ width: '40%'}}>
+                                        <RaisedButton label="Zapisz wynik" 
+                                                backgroundColor="#9CCC65" 
+                                                labelStyle={{ color: 'white'}} 
+                                                style={{ width: '100%' }}
+                                                onClick={() => { 
+                                                    this.props.addNewHighscore( currentGame.points, currentGame.difficultyLevel )
+                                                    this.props.gameOver()
+                                                }}
+                                        />
+                                        <RaisedButton label="Dodaj punkty do profilu" 
+                                                backgroundColor="#9CCC65" 
+                                                labelStyle={{ color: 'white'}} 
+                                                style={{ width: '100%' }}
+                                                onClick={() => { 
+                                                    this.props.pushResult( currentGame.points ) 
+                                                    this.props.gameOver()
+                                                }}
+                                        />
+                                    </div>
+                                }
+                                <RaisedButton label="Jeszcze raz!" style={styles.onceAgainButton} primary onClick={ () => this.props.gameOver() } />
+                            </div>
+                        }
+                        { currentGame.gameOverButNotLoose &&
+                            <div style={ { ...styles.gameOverButNotLooseContainer, ...{ width: currentGame.width, height: currentGame.height} } }>
+                                <h2>Koniec gry!</h2>
+                                <p style={styles.sumOfPointsContainer}> Zdobyłeś: 
+                                    <span style={styles.points}>{currentGame.points}</span>
+                                    punktów!
+                                </p>
+                                { !_.isEmpty(this.props.user) && currentGame.difficultyLevel !== 'custom' &&
+                                    <div style={{ width: '40%' }}>
+                                        <RaisedButton label="Zapisz wynik" 
+                                                backgroundColor="#9CCC65" 
+                                                labelStyle={{ color: 'white'}} 
+                                                style={{ width: '100%' }}
+                                                onClick={() => { 
+                                                    this.props.addNewHighscore( currentGame.points, currentGame.difficultyLevel )
+                                                    this.props.gameOver()
+                                                }}
+                                        />
+                                        <RaisedButton label="Dodaj punkty do profilu" 
+                                                backgroundColor="#9CCC65" 
+                                                labelStyle={{ color: 'white'}} 
+                                                style={{ width: '100%' }}
+                                                onClick={() => { 
+                                                    this.props.pushResult( currentGame.points ) 
+                                                    this.props.gameOver()
+                                                }}
+                                        />
+                                    </div>
+                                }
                                 <RaisedButton label="Jeszcze raz!" style={styles.onceAgainButton} primary onClick={ () => this.props.gameOver() } />
                             </div>
                         }
@@ -247,10 +316,18 @@ const styles = {
     onceAgainButton: {
         width: '40%',
         marginTop: '2rem'
+    },
+    gameOverButNotLooseContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+        backgroundColor: "#00BCD4"
     }
 }
 function mapStateToProps(state){
-    return { currentGame: state.currentGame }
+    return { currentGame: state.currentGame, user: state.user }
 }
 
 export default connect(mapStateToProps, actions)(Play)

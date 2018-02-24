@@ -1,5 +1,5 @@
-import { CONFIGURE_CURRENT_GAME, END_OF_LEVEL, SET_RESULT, INCREMENT_LEVEL, GAME_OVER } from './types'
-import _ from 'lodash'
+import { CONFIGURE_CURRENT_GAME, END_OF_LEVEL, SET_RESULT, INCREMENT_LEVEL, GAME_OVER, GAME_OVER_BUT_NOT_LOOSE, FETCH_USER, SEND_HIGHSCORE } from './types'
+import axios from 'axios'
 
 export const configureCurrentGame = (data, width, height) => dispatch => {
     let payload = {}
@@ -36,6 +36,7 @@ export const configureCurrentGame = (data, width, height) => dispatch => {
         break
     }
 
+    payload.difficultyLevel = data.difficultyLevel
     payload.points = 0
     payload.level = 1
     payload.numbers = []
@@ -52,9 +53,6 @@ export const endOfLevel = correctResult => dispatch => {
 }
 
 export const setResult = (result, correctResult) => dispatch => {
-    console.log(result)
-    console.log(correctResult)
-    console.log(result == correctResult)
     dispatch({ type: SET_RESULT, payload: ( result == correctResult ) })
 }
 
@@ -66,4 +64,20 @@ export const gameOver = () => dispatch => {
     dispatch( { type: GAME_OVER } )
 }
 
+export const gameOverButNotLoose = () => dispatch => {
+    dispatch( { type: GAME_OVER_BUT_NOT_LOOSE })
+}
 
+export const pushResult = points  => async dispatch => {
+    const user = await axios.post(`${process.env.REACT_APP_API_URL}/game/add_points`, { points }, { withCredentials: true } )
+    dispatch( { type: FETCH_USER, payload: user.data } )
+}
+
+export const addNewHighscore = ( points, difficultyLevel ) => async dispatch => {
+    const data = {
+        points,
+        difficultyLevel
+    }
+    await axios.post(`${process.env.REACT_APP_API_URL}/game/add_new_highscore`, data, { withCredentials: true })
+    dispatch({ type: SEND_HIGHSCORE })
+}

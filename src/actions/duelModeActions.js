@@ -1,0 +1,1 @@
+import { GET_TABLES } from './types'
