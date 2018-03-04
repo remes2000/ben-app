@@ -10,6 +10,7 @@ import {
     TableRow,
     TableRowColumn
 } from 'material-ui/Table'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const renderHighscore = (highscore, index) => {
     return(
@@ -35,12 +36,12 @@ const HighscoresTable = (props) => {
                     <TableHeaderColumn>Miejsce</TableHeaderColumn>
                     <TableHeaderColumn>Gracz</TableHeaderColumn>
                     <TableHeaderColumn>Ilość punktów</TableHeaderColumn>
-                    <TableHeaderColumn>Poziom trudności</TableHeaderColumn>                            
+                    <TableHeaderColumn>Poziom trudności</TableHeaderColumn>                           
                 </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
             {
-                props.highscores.map( ( highscore, index ) => renderHighscore( highscore, index))
+                props.highscores.map( ( highscore, index ) => renderHighscore( highscore, index ))
             }
             </TableBody>
         </Table>

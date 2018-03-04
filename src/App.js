@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as authActions from './actions/authenticationActions'
+import { fetchUser } from './actions/authenticationActions'
+import { openSocket } from './actions/duelModeActions'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import './App.css'
 
@@ -13,16 +14,18 @@ import TopPlayers from './components/pages/TopPlayers'
 import Highscores from './components/pages/Highscores'
 import Profile from './components/pages/Profile'
 import Duel from './components/pages/Duel'
+import CreateDuelRoom from './components/pages/CreateDuelRoom'
+import DuelRoom from './components/pages/DuelRoom'
+import Dashboard from './components/pages/Dashboard'
 
 import UserRoute from './routes/UserRoute'
 import GuestRoute from './routes/GuestRoute'
- 
-const Dashboard = () => <div><p>Dashboard</p></div>
 
 class App extends Component {
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.fetchUser()
+    this.props.openSocket()
   }
   
   render() {
@@ -35,6 +38,8 @@ class App extends Component {
                   <div className="container">
                     <Switch>
                       <Route path="/profile/:id" component={Profile} />
+                      <UserRoute path="/duel/create_room" component={ CreateDuelRoom } />
+                      <Route path="/duel/duel_room" component={ DuelRoom } />
                       <UserRoute path="/duel" component={Duel} />
                       <Route path="/highscores" component={Highscores} />                      
                       <Route path="/top" component={TopPlayers} />
@@ -52,4 +57,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, authActions)(App)
+export default connect(null, { fetchUser, openSocket } )(App)

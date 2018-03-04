@@ -42,7 +42,7 @@ export const configureCurrentGame = (data, width, height) => dispatch => {
     payload.numbers = []
 
     for(let i=0; i<payload.level + 1; i++){
-        payload.numbers.push( (Math.floor(Math.random() * (payload.end - payload.start + 1)) + payload.start).toString() )
+        payload.numbers.push( Math.floor(Math.random() * (payload.end - payload.start + 1)) + payload.start )
     }
 
     dispatch({type: CONFIGURE_CURRENT_GAME, payload})

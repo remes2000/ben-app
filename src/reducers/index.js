@@ -7,6 +7,11 @@ import registrationFormReducer from './registrationFormReducer'
 import bestPlayersReducer from './bestPlayersReducer'
 import highscoresReducer from './highscoresReducer'
 import currentUserProfileReducer from './currentUserProfileReducer'
+import socketReducer from './socketReducer'
+import roomsReducer from './roomsReducer'
+import duelRoomReducer from './duelRoomReducer'
+import chatReducer from './chatReducer'
+import playersReducer from './playersReducer'
 
 export default combineReducers({
     currentGame: currentGameReducer,
@@ -15,5 +20,10 @@ export default combineReducers({
     registrationForm: registrationFormReducer,
     bestPlayers: bestPlayersReducer,
     highscores: highscoresReducer,
-    currentUserProfile: currentUserProfileReducer
+    currentUserProfile: currentUserProfileReducer,
+    socket: socketReducer,
+    rooms: roomsReducer,
+    duelRoom: duelRoomReducer,
+    chat: chatReducer,
+    players: playersReducer
 })

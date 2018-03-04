@@ -42,7 +42,7 @@ export default function(state = null, action) {
             newStateWithNextLevel.numbers = []
 
             for(let i=0; i<newStateWithNextLevel.level + 1; i++){
-                newStateWithNextLevel.numbers.push( (Math.floor(Math.random() * (newStateWithNextLevel.end - newStateWithNextLevel.start + 1)) + newStateWithNextLevel.start).toString() )
+                newStateWithNextLevel.numbers.push( Math.floor(Math.random() * (newStateWithNextLevel.end - newStateWithNextLevel.start + 1)) + newStateWithNextLevel.start )
             }
             return newStateWithNextLevel
         case GAME_OVER:

@@ -29,6 +29,12 @@ class Profile extends Component{
                             <span style={{ fontSize: '2rem', margin: '0 1rem 0 1rem'}}>{currentUserProfile.numberOfGames}</span>
                             grach
                         </p>
+                        <p style={styles.informationsContainer}>
+                            <span style={{ fontSize: '2rem', margin: '0 1rem 0 0'}}>{currentUserProfile.numberOfDuels}</span>
+                            wygranych w
+                            <span style={{ fontSize: '2rem', margin: '0 1rem 0 1rem'}}>{currentUserProfile.wonDuels}</span>
+                            pojedynkach
+                        </p>
                         <section>
                             <h2 style={styles.sectionHeader}>Najlepsze wyniki</h2>
                             <HighscoresTable highscores={currentUserProfile.highscores}/>

@@ -11,5 +11,10 @@ import reducers from './reducers'
 
 const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(reduxThunk)))
 
+window.onkeydown = e => {
+    if(e.keyCode===87)
+        alert()
+}
+
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
