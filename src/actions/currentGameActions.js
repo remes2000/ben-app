@@ -29,8 +29,8 @@ export const configureCurrentGame = (data, width, height) => dispatch => {
         case 'custom':
             payload.intervals = data.intervals
             payload.animationTime = data.animationTime
-            payload.start = parseInt(data.start)
-            payload.end = parseInt(data.end)
+            payload.start = parseFloat(data.start)
+            payload.end = parseFloat(data.end)
         break
         default:
         break

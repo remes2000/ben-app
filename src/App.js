@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchUser } from './actions/authenticationActions'
-import { openSocket } from './actions/duelModeActions'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import './App.css'
 
@@ -17,39 +16,44 @@ import Duel from './components/pages/Duel'
 import CreateDuelRoom from './components/pages/CreateDuelRoom'
 import DuelRoom from './components/pages/DuelRoom'
 import Dashboard from './components/pages/Dashboard'
+import Achievements from './components/pages/Achievements'
 
 import UserRoute from './routes/UserRoute'
 import GuestRoute from './routes/GuestRoute'
+import DuelPlayerRoute from './routes/DuelPlayerRoute'
+import SocketRoute from './routes/SocketRoute'
+
+import _ from 'lodash'
 
 class App extends Component {
 
   componentWillMount(){
     this.props.fetchUser()
-    this.props.openSocket()
   }
-  
+
   render() {
     return (
       <div>
           <BrowserRouter>
               <MuiThemeProvider>
                 <div>
-                  <Header />
-                  <div className="container">
-                    <Switch>
-                      <Route path="/profile/:id" component={Profile} />
-                      <UserRoute path="/duel/create_room" component={ CreateDuelRoom } />
-                      <Route path="/duel/duel_room" component={ DuelRoom } />
-                      <UserRoute path="/duel" component={Duel} />
-                      <Route path="/highscores" component={Highscores} />                      
-                      <Route path="/top" component={TopPlayers} />
-                      <Route path="/play" component={Play} />
-                      <GuestRoute path="/register" component={Register} />
-                      <GuestRoute path="/login" component={Login} />
-                      <Route path="/" component={Dashboard} />
-                    </Switch>
+                    <Header />
+                    <div className="container">
+                      <Switch>
+                        <Route path="/profile/:id" component={Profile} />
+                        <Route path="/achievements/:id" component={Achievements} />
+                        <UserRoute path="/duel/create_room" component={ CreateDuelRoom } />
+                        <DuelPlayerRoute path="/duel/duel_room" component={ DuelRoom } />
+                        <SocketRoute path="/duel" component={ Duel } />
+                        <Route path="/highscores" component={Highscores} />                      
+                        <Route path="/top" component={TopPlayers} />
+                        <Route path="/play" component={Play} />
+                        <GuestRoute path="/register" component={Register} />
+                        <GuestRoute path="/login" component={Login} />
+                      </Switch>
+                    </div>
+                    <Route path="/" component={Dashboard} exact />
                   </div>
-                </div>
               </MuiThemeProvider>
           </BrowserRouter>
       </div>
@@ -57,4 +61,11 @@ class App extends Component {
   }
 }
 
-export default connect(null, { fetchUser, openSocket } )(App)
+function mapStateToProps(state){
+  return{
+    user: state.user,
+    socket: state.socket
+  }
+}
+
+export default connect(mapStateToProps, { fetchUser } )(App)

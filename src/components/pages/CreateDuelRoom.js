@@ -18,7 +18,6 @@ class CreateDuelRoom extends Component{
             difficultyLevel: 'normal',
             name: '',
             slots: 2,
-            password: '',
             numberOfLevels: 5,
             intervals: '',
             animationTime: '',
@@ -108,12 +107,6 @@ class CreateDuelRoom extends Component{
                         value={this.state.numberOfLevels}
                         onChange={ e => this.setState({ numberOfLevels: e.target.value }) }
                         errorText={this.state.errors.numberOfLevels}
-                    /> <br />
-                    <TextField
-                        style={styles.fieldStyle} 
-                        floatingLabelText="Hasło (opcjonalne)"
-                        value={this.state.password}
-                        onChange={ e => this.setState({ password: e.target.value }) }
                     /> <br />
                     <SelectField
                         style={styles.fieldStyle} 

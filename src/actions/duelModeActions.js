@@ -6,11 +6,6 @@ export const getDuelRooms = tables => dispatch => {
     dispatch({ type: GET_DUEL_ROOMS, payload: tables })
 }
 
-export const openSocket = () => dispatch => {
-    const socket = io(process.env.REACT_APP_API_URL)
-    dispatch({ type: OPEN_SOCKET, payload: socket})
-}
-
 export const setDuelRoom = room => dispatch => {
     dispatch({ type: SET_DUEL_ROOM, payload: room })
 }

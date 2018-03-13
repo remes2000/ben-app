@@ -4,15 +4,15 @@ import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { FETCH_IS_PENDING } from '../actions/types'
 
-const GuestRoute = ( {isAuthenticated, isFetched, component: Component, ...rest} ) => {
+const SocketRoute = ( { isSocketConnected, isAuthenticated, isFetched, component: Component, ...rest} ) => {
     return (
         <Route {...rest} render={ props => 
-            !isAuthenticated ? (
+            isSocketConnected&&isAuthenticated ? (
                 <Component {...props} />
             ) : 
-            isFetched ? (
+            isFetched? (
                 <div>Loading...</div>
-            ) :
+            ):
             (
                 <Redirect to="/" />
             )
@@ -22,9 +22,10 @@ const GuestRoute = ( {isAuthenticated, isFetched, component: Component, ...rest}
 
 function mapStateToProps(state) {
     return {
+        isSocketConnected: !_.isEmpty(state.socket),
         isAuthenticated: !_.isEmpty(state.user),
         isFetched: state.user===FETCH_IS_PENDING
     }
 }
 
-export default connect(mapStateToProps)(GuestRoute)
+export default connect(mapStateToProps)(SocketRoute)

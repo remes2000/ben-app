@@ -4,8 +4,6 @@ import * as duelModeActions from '../../actions/duelModeActions'
 import { BenGame } from 'ben-canvas-game'
 import { Link } from 'react-router-dom'
 
-import _ from 'lodash'
-
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
@@ -90,6 +88,21 @@ class DuelRoom extends Component{
     componentDidUpdate() {
         if(this.props.duelRoom.scoreboard && this.state.secondsLeft === 5 && this.props.duelRoom.numberOfLevels !== this.props.duelRoom.level)
             setTimeout(this.decrementSecondsLeft, 1000)
+    }
+
+    renderWinners(scoreboard) {
+       const highscore = scoreboard[0].points
+
+        let winners = []
+
+       scoreboard.forEach( player => {
+            if(player.points === highscore){
+                winners.push(<span style={{ fontWeight: 'bold' }}>{player.username}</span>)
+                winners.push(<br />)
+            }
+       })
+
+       return winners
     }
 
     render(){
@@ -226,7 +239,11 @@ class DuelRoom extends Component{
                             {  duelRoom.numberOfLevels === duelRoom.level &&
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <p style={{ fontWeight: 'bold'}}>Koniec gry!</p>
-                                    <p style={{textAlign: 'center'}}>Wygrywa: <span style={{ fontWeight: 'bold' }}>{duelRoom.scoreboard[0].username}</span></p>
+                                    <p style={{textAlign: 'center'}}>Wygrywa: <br />
+                                        {
+                                            this.renderWinners(duelRoom.scoreboard)
+                                        }
+                                    </p>
                                     <RaisedButton label="Wyjdź" secondary containerElement={<Link to="/duel" />}/>
                                 </div>
                             }

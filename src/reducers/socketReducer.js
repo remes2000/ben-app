@@ -1,9 +1,10 @@
-import { OPEN_SOCKET } from '../actions/types'
+import { FETCH_USER } from '../actions/types'
+import io from 'socket.io-client'
 
-export default function( state = [], action){
+export default function( state = {}, action){
     switch(action.type){
-        case OPEN_SOCKET:
-            return action.payload
+        case FETCH_USER:
+            return io(process.env.REACT_APP_API_URL)
         default:
             return state
     }

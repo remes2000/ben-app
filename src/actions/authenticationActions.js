@@ -1,7 +1,8 @@
-import { FETCH_USER, INVALID_PASSWORD_OR_EMAIL, INVALID_REGISTRATION_DATA } from './types'
+import { FETCH_USER, INVALID_PASSWORD_OR_EMAIL, INVALID_REGISTRATION_DATA, FETCH_IS_PENDING } from './types'
 import axios from 'axios'
 
 export const fetchUser = () => async dispatch => {
+    dispatch({ type: FETCH_IS_PENDING })
     const userData = await axios.get(`${process.env.REACT_APP_API_URL}/current_user`, { withCredentials: true })
     dispatch({ type: FETCH_USER, payload: userData.data })
 }
@@ -30,7 +31,7 @@ export const registerUser = credentials => async dispatch => {
         })
 }
 
-export const loginUser = credentials => dispatch => {
+export const loginUser = credentials=> dispatch => {
     axios.post(`${process.env.REACT_APP_API_URL}/auth/local`, credentials, { withCredentials: true })
         .then( userData => {
             dispatch({ type: FETCH_USER, payload: userData.data })

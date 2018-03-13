@@ -69,7 +69,6 @@ class Chat extends Component{
                     <TextField
                         style={styles.textInput} 
                         hintText="Treść wiadomości"
-                        style={styles.textInput}
                         value={this.state.messageText}
                         onChange={ e => this.setState({ messageText: e.target.value })}
                     />

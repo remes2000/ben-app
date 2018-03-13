@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/actions'
 import _ from 'lodash'
+import { Link } from 'react-router-dom'
 
 import HighscoresTable from '../tables/HighscoresTable'
 
@@ -40,7 +41,9 @@ class Profile extends Component{
                             <HighscoresTable highscores={currentUserProfile.highscores}/>
                         </section>
                         <section>
-                            <h2 style={styles.sectionHeader}>Achievementy</h2>
+                            <Link to={`/achievements/${currentUserProfile._id}`} style={{textDecoration: 'none'}}>
+                                <h2 style={styles.sectionHeader}>Achievementy</h2>
+                            </Link>
                         </section>
                     </div>
                 }
@@ -64,8 +67,7 @@ const styles = {
         letterSpacing: '0.2rem'
     },
     sectionHeader: {
-        textAlign: 'center',
-        margin: '2.5rem 0 2.5rem 0'
+        textAlign: 'center'
     }
 }
 

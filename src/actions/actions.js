@@ -1,4 +1,4 @@
-import { GET_BEST_PLAYERS, GET_HIGHSCORES, GET_USER_BY_ID } from './types'
+import { GET_BEST_PLAYERS, GET_HIGHSCORES, GET_USER_BY_ID, GET_AVALIABLE_ACHIEVEMENTS } from './types'
 import axios from 'axios'
 
 export const getBestPlayers = () => async dispatch => {
@@ -14,4 +14,9 @@ export const getHighscores = difficultyLevel => async dispatch => {
 export const getUserById = id => async dispatch => {
     const user = await axios.get(`${process.env.REACT_APP_API_URL}/api/get_user_by_id?userId=${id}`)
     dispatch({ type: GET_USER_BY_ID, payload: user.data})
+}
+
+export const getAvaliableAchievements = () => async dispatch => {
+    const achievements = await axios.get(`${process.env.REACT_APP_API_URL}/api/get_achievements`)
+    dispatch({ type: GET_AVALIABLE_ACHIEVEMENTS, payload: achievements.data })
 }

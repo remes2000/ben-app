@@ -12,6 +12,7 @@ import roomsReducer from './roomsReducer'
 import duelRoomReducer from './duelRoomReducer'
 import chatReducer from './chatReducer'
 import playersReducer from './playersReducer'
+import avaliableAchievementsReducer from './avaliableAchievementsReducer'
 
 export default combineReducers({
     currentGame: currentGameReducer,
@@ -25,5 +26,6 @@ export default combineReducers({
     rooms: roomsReducer,
     duelRoom: duelRoomReducer,
     chat: chatReducer,
-    players: playersReducer
+    players: playersReducer,
+    avaliableAchievements: avaliableAchievementsReducer
 })

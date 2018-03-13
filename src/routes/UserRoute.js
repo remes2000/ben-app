@@ -2,13 +2,18 @@ import React from 'react'
 import _ from 'lodash'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { FETCH_IS_PENDING } from '../actions/types'
 
-const UserRoute = ( {isAuthenticated, component: Component, ...rest} ) => {
+const UserRoute = ( {isAuthenticated, isFetched, component: Component, ...rest} ) => {
     return (
         <Route {...rest} render={ props => 
             isAuthenticated ? (
                 <Component {...props} />
-            ) : (
+            ) : 
+            isFetched ? (
+                <div>Loading...</div>
+            ):
+            (
                 <Redirect to="/" />
             )
         } />
@@ -17,7 +22,8 @@ const UserRoute = ( {isAuthenticated, component: Component, ...rest} ) => {
 
 function mapStateToProps(state) {
     return {
-        isAuthenticated: !_.isEmpty(state.user)
+        isAuthenticated: !_.isEmpty(state.user),
+        isFetched: state.user===FETCH_IS_PENDING
     }
 }
 

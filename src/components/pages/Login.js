@@ -5,6 +5,7 @@ import * as EmailValidator from 'email-validator'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/authenticationActions'
+import { openSocket } from '../../actions/duelModeActions'
 
 import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons'
 import TextField from 'material-ui/TextField'
@@ -32,11 +33,12 @@ class Login extends Component{
     onFormSubmit = e => {
         e.preventDefault()
         const errors = this.validate(this.state)
-        if(_.isEmpty(errors))
+        if(_.isEmpty(errors)){
             this.props.loginUser({
                 email: this.state.email,
                 password: this.state.password
             })
+        }
         else
             this.setState({ errors })
     }
@@ -118,4 +120,4 @@ function mapStateToProps(state){
     return { loginForm: state.loginForm }
 }
 
-export default connect(mapStateToProps, actions)(Login)
+export default connect(mapStateToProps, { ...actions })(Login)

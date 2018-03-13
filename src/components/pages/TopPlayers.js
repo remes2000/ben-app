@@ -28,7 +28,7 @@ class TopPlayers extends Component{
                 </TableRowColumn>
                 <TableRowColumn>{user.points}</TableRowColumn>
                 <TableRowColumn>{user.numberOfGames}</TableRowColumn>
-                <TableRowColumn>{parseFloat(user.points/user.numberOfGames)}</TableRowColumn>
+                <TableRowColumn>{parseFloat(user.points/user.numberOfGames).toFixed(2)}</TableRowColumn>
             </TableRow>
         )
     }
