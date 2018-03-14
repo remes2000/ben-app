@@ -18,12 +18,10 @@ import DuelRoom from './components/pages/DuelRoom'
 import Dashboard from './components/pages/Dashboard'
 import Achievements from './components/pages/Achievements'
 
-import UserRoute from './routes/UserRoute'
+//import UserRoute from './routes/UserRoute'
 import GuestRoute from './routes/GuestRoute'
 import DuelPlayerRoute from './routes/DuelPlayerRoute'
 import SocketRoute from './routes/SocketRoute'
-
-import _ from 'lodash'
 
 class App extends Component {
 
@@ -42,7 +40,7 @@ class App extends Component {
                       <Switch>
                         <Route path="/profile/:id" component={Profile} />
                         <Route path="/achievements/:id" component={Achievements} />
-                        <UserRoute path="/duel/create_room" component={ CreateDuelRoom } />
+                        <SocketRoute path="/duel/create_room" component={ CreateDuelRoom } />
                         <DuelPlayerRoute path="/duel/duel_room" component={ DuelRoom } />
                         <SocketRoute path="/duel" component={ Duel } />
                         <Route path="/highscores" component={Highscores} />                      

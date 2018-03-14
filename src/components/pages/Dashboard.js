@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
     return (
-        <div>
+        <div className="dashboardContainer">
             <div className="particleContainer">
                 <Particles
                     params={particlesConfig}
@@ -60,7 +60,7 @@ const Dashboard = () => {
                         </p>
 
                         <div style={{ width: '100%', textAlign: 'center' }}>
-                            <iframe title="21movie" width="560" height="315" src="https://www.youtube.com/embed/26vEcvI3v-Y?start=5" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <iframe title="21movie" width="100%" height="400" src="https://www.youtube.com/embed/26vEcvI3v-Y?start=5" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
                         </div>
 
                         <p>
@@ -73,7 +73,7 @@ const Dashboard = () => {
                             Z pomocą przyszedł mi teleturniej "The Brain" w którym zadaniem młodej dziewczynki było zsumowanie szybko pojawiających się liczb.
                         </p>
                         <div style={{ width: '100%', textAlign: 'center' }}>
-                            <iframe title="theBrain" width="560" height="315" src="https://www.youtube.com/embed/5-ZzU7Tc1XY?start=115" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <iframe title="theBrain" width="100%" height="400" src="https://www.youtube.com/embed/5-ZzU7Tc1XY?start=115" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
                         </div>
                     </div>
                 </section>

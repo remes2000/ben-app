@@ -21,6 +21,8 @@ class Play extends Component{
             start: '',
             end: '',
             answer: '',
+            gameWidth: 960,
+            gameHeight: 600,
             errors: {}
         }
     }
@@ -61,13 +63,15 @@ class Play extends Component{
             return
         }
 
-        this.props.configureCurrentGame(this.state, 960, 600)
+        this.props.configureCurrentGame(this.state)
 
     }
 
     render() {
 
         const currentGame = this.props.currentGame
+        const width = this.state.gameWidth
+        const height = this.state.gameHeight
 
         return (
             <div>
@@ -148,21 +152,20 @@ class Play extends Component{
                 }
                 { currentGame && typeof currentGame.correctResult === 'undefined' &&
                     <BenGame 
-                        width={currentGame.width}
-                        height={currentGame.height}
+                        width={width}
+                        height={height}
                         numbers={currentGame.numbers}
                         level={currentGame.level}
                         points={currentGame.points}
                         interval={ parseFloat(currentGame.intervals) * 1000}
                         animationTime={ parseFloat(currentGame.animationTime) * 1000}
-                        welcomeScreenText="Naciśnij przycisk, gdy będziesz gotowy!"
                         onEndOfGame={ result => {
                             this.props.endOfLevel(result)
                         }}
                     />
                 }
                 { currentGame && typeof currentGame.correctResult !== 'undefined' && typeof currentGame.isAnswerCorrect === 'undefined' &&
-                    <div style={ { ...styles.resultContainer, ...{ width: currentGame.width, height: currentGame.height} } }>
+                    <div style={ { ...styles.resultContainer, ...{ width, height} } }>
                         <h2>Podaj wynik</h2>
                         <form
                         style={styles.confirmForm}
@@ -184,7 +187,7 @@ class Play extends Component{
                 { currentGame && typeof currentGame.isAnswerCorrect !== 'undefined' &&
                     <div>
                         { currentGame.isAnswerCorrect && !currentGame.gameOverButNotLoose &&
-                            <div style={ { ...styles.correctAnswerContainer, ...{ width: currentGame.width, height: currentGame.height} } }>
+                            <div style={ { ...styles.correctAnswerContainer, ...{ width, height } } }>
                                 <h2>Poprawna odpowiedź!</h2>
                                 <div style={styles.correctAnswerButtonsContainer} >
                                     <RaisedButton label="Koniec gry" backgroundColor="#EF5350" labelStyle={{ color: 'white'}} onClick={ () => this.props.gameOverButNotLoose() }/>
@@ -193,7 +196,7 @@ class Play extends Component{
                             </div>
                         }
                         { !currentGame.isAnswerCorrect && !currentGame.gameOverButNotLoose && 
-                            <div style={ { ...styles.gameOverContainer, ...{ width: currentGame.width, height: currentGame.height} } }>
+                            <div style={ { ...styles.gameOverContainer, ...{ width, height } } }>
                                 <h2>Koniec gry!</h2>
                                 <p style={styles.sumOfPointsContainer}>Poprawna odpowiedź to: <span style={styles.points}>{currentGame.correctResult}</span></p>
                                 <p style={styles.sumOfPointsContainer}> Zdobyłeś: 
@@ -226,7 +229,7 @@ class Play extends Component{
                             </div>
                         }
                         { currentGame.gameOverButNotLoose &&
-                            <div style={ { ...styles.gameOverButNotLooseContainer, ...{ width: currentGame.width, height: currentGame.height} } }>
+                            <div style={ { ...styles.gameOverButNotLooseContainer, ...{ width, height} } }>
                                 <h2>Koniec gry!</h2>
                                 <p style={styles.sumOfPointsContainer}> Zdobyłeś: 
                                     <span style={styles.points}>{currentGame.points}</span>

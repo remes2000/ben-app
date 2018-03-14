@@ -1,11 +1,8 @@
 import { CONFIGURE_CURRENT_GAME, END_OF_LEVEL, SET_RESULT, INCREMENT_LEVEL, GAME_OVER, GAME_OVER_BUT_NOT_LOOSE, FETCH_USER, SEND_HIGHSCORE } from './types'
 import axios from 'axios'
 
-export const configureCurrentGame = (data, width, height) => dispatch => {
+export const configureCurrentGame = data => dispatch => {
     let payload = {}
-
-    payload.width = width
-    payload.height = height
 
     switch (data.difficultyLevel){
         case 'easy':

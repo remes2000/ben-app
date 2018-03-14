@@ -5,7 +5,6 @@ import * as EmailValidator from 'email-validator'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/authenticationActions'
-import { openSocket } from '../../actions/duelModeActions'
 
 import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons'
 import TextField from 'material-ui/TextField'

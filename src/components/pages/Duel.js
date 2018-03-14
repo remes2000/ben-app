@@ -14,7 +14,8 @@ class Duel extends Component{
 
         this.state = {
             selected: null,
-            connecting: false
+            connecting: false,
+            loading: true
         }
     }
 
@@ -35,6 +36,8 @@ class Duel extends Component{
         this.props.socket.emit('reciveListOfDuelRooms')
         this.props.socket.on('listOfDuelRooms', rooms => {
             this.props.getDuelRooms(rooms)
+            console.log('testtesttest')
+            this.setState({ loading: false })
         })
         
         this.props.socket.on('joinToRoom', room => {
@@ -61,7 +64,10 @@ class Duel extends Component{
         return (
             <div>
                 <h2 style={styles.headerStyle}>Pojedynkuj się</h2>
-                { !this.state.connecting &&
+                { this.state.loading &&
+                    <p>Loading...</p>
+                }
+                { !this.state.connecting && !this.state.loading &&
                     <div>
                         <div style={styles.buttonsContainer}>
                             <RaisedButton 
