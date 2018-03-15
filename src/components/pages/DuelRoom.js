@@ -143,7 +143,7 @@ class DuelRoom extends Component{
                             {   duelRoom.creator === user._id && players.length < 2 &&
                                     <div style={styles.pleaseWaitInformation}>
                                         <p>
-                                            Aby rozpocząć grę, w pokoju musi się znajdować conajmniej dwóch graczy.
+                                            Aby rozpocząć grę, w pokoju musi się znajdować co najmniej dwóch graczy.
                                         </p>
                                     </div>
                             }
@@ -166,7 +166,7 @@ class DuelRoom extends Component{
                         <BenGame 
                             width={900}
                             height={600}
-                            numbers={duelRoom.numbers}
+                            numbers={ duelRoom.numbers.map(number => number.toString()) }
                             level={duelRoom.level}
                             points={duelRoom.players.find( p => p._id === user._id).points}
                             interval={ duelRoom.intervals * 1000 }
@@ -259,8 +259,9 @@ class DuelRoom extends Component{
                         </ul>
                     </div>
                 }
-
-                <Chat />
+                { duelRoom.numberOfLevels !== duelRoom.level &&
+                    <Chat />
+                }
             </div>
         )
 

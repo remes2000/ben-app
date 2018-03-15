@@ -31,9 +31,9 @@ class Profile extends Component{
                             grach
                         </p>
                         <p style={styles.informationsContainer}>
-                            <span style={{ fontSize: '2rem', margin: '0 1rem 0 0'}}>{currentUserProfile.numberOfDuels}</span>
+                            <span style={{ fontSize: '2rem', margin: '0 1rem 0 0'}}>{currentUserProfile.wonDuels}</span>
                             wygranych w
-                            <span style={{ fontSize: '2rem', margin: '0 1rem 0 1rem'}}>{currentUserProfile.wonDuels}</span>
+                            <span style={{ fontSize: '2rem', margin: '0 1rem 0 1rem'}}>{currentUserProfile.numberOfDuels}</span>
                             pojedynkach
                         </p>
                         <section>

@@ -23,7 +23,7 @@ const Dashboard = () => {
             <main>
                 <section>
                     <div className="container">
-                        <h2>Co to Ben ?</h2>
+                        <h2>Co to Ben?</h2>
                         <p>
                             Ben to matematyczna gra edukacyjna, która nie posiada ograniczeń wiekowych. Wystarczy tylko potrafić dodawać. 
                             Szybko dodawać... Gra powstała jako projekt na konkurs "Cyborg" w roku 2018.
@@ -32,10 +32,10 @@ const Dashboard = () => {
                 </section>
                 <section className="dark">
                     <div className="container">
-                        <h2>Jak grać w Ben ?</h2>
+                        <h2>Jak grać w Ben?</h2>
                         <p>
                             Na ekranie będą pojawiać się liczby a twoim zadaniem jest je zsumować. 
-                            Brzmi łatwo ? Kolejne liczby są wyświetlane co sekundę. Dostępne sa trzy poziomy trudności: 
+                            Brzmi łatwo? Kolejne liczby są wyświetlane co sekundę. Dostępne sa trzy poziomy trudności: 
                             łatwy <b>{'< -9 do 9 >'}</b> normalny <b>{'< -30 do 30 >'}</b> trudny  <b>{'< -100 do 100 >'}</b>. 
                         </p>
                         <h3>Użytkownicy posiadający konto na Ben mogą:</h3>
@@ -43,7 +43,7 @@ const Dashboard = () => {
                             <li>zapisywać liczbę zdobytych punktów</li>
                             <li>zapisywać swoje najlepsze wyniki w danej kategorii</li>
                             <li>zmierzyć się z innymi graczami w trybie pojedynku</li>
-                            <li>kolekcjonować achivementy</li>
+                            <li>kolekcjonować achievementy</li>
                             <li>posiadać swój profil na którym będą zapisane wszystkie osiągnięcia</li>
                         </ul>
                         <div style={{width: '100%', textAlign: 'center' }}>
@@ -56,7 +56,7 @@ const Dashboard = () => {
                         <h2>O Ben</h2>
                         <p>
                             Zawsze chciałem potrafić szybko liczyć w pamięci, osoba która wyćwiczy tę umiejętność będzie jak superbohater. 
-                            Zresztą, zobaczcie sami jak bardzo to imponujące:
+                            Zresztą, zobaczcie sami jak bardzo jest to imponujące:
                         </p>
 
                         <div style={{ width: '100%', textAlign: 'center' }}>
@@ -87,7 +87,7 @@ const Dashboard = () => {
                             Wykorzystana baza danych to <b>MongoDB</b>. Tryb pojedynku oparty jest na websocketach wykorzystałem w tym celu moduł <b>Socket.io</b>. 
                             Przy projekcie pracowałem również z API Google'a i Facebook'a. 
                             Jeżeli chodzi o samą grę, to rysowana jest ona na canvasie z wykorzystniem Reacta i modułu <b>react-konva</b>. 
-                            Gra dostępna jest na jako moduł na npm.
+                            Gra dostępna jest jako moduł na npm.
                         </p>
                         <ul className="sourcesLinks">
                             <li>
@@ -113,7 +113,15 @@ const Dashboard = () => {
                 </section>
             </main>
             <footer>
-                Created by <a href="https://github.com/remes2000">Michal Nieruchalski</a> ~ 2018
+                <p>
+                    Created by <a href="https://github.com/remes2000">Michal Nieruchalski</a> ~ 2018
+                </p>
+                <p className="iconsAuthors">
+                    Icons made by 
+                    <a href="https://thenounproject.com/arjunadamson/">Arjun Adamson</a>
+                    <a href="http://www.freepik.com" title="Freepik">Freepik</a>
+                    <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a>
+                </p>
             </footer>
         </div>
     )

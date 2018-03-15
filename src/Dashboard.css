@@ -77,3 +77,7 @@ footer{
 .sourcesLinks li img{
     width: 100%;
 }
+
+.iconsAuthors a{
+    margin: 0.25rem;
+}

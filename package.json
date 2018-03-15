@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
-    "ben-canvas-game": "^0.1.6",
+    "ben-canvas-game": "^0.1.9",
     "email-validator": "^1.1.1",
     "lodash": "^4.17.5",
     "material-ui": "^0.20.0",

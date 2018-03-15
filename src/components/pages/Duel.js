@@ -36,7 +36,6 @@ class Duel extends Component{
         this.props.socket.emit('reciveListOfDuelRooms')
         this.props.socket.on('listOfDuelRooms', rooms => {
             this.props.getDuelRooms(rooms)
-            console.log('testtesttest')
             this.setState({ loading: false })
         })
         
