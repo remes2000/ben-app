@@ -6,7 +6,7 @@
     "axios": "^0.17.1",
     "ben-canvas-game": "^0.1.9",
     "email-validator": "^1.1.1",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.21",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
